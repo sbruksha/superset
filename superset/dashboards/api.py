@@ -54,6 +54,7 @@ from superset.dashboards.commands.update import UpdateDashboardCommand
 from superset.dashboards.dao import DashboardDAO
 from superset.dashboards.filters import (
     DashboardAccessFilter,
+    DashboardCertifiedFilter,
     DashboardFavoriteFilter,
     DashboardTitleOrSlugFilter,
     FilterRelatedRoles,
@@ -80,6 +81,8 @@ from superset.views.base import generate_download_headers
 from superset.views.base_api import (
     BaseSupersetModelRestApi,
     RelatedFieldFilter,
+    requires_form_data,
+    requires_json,
     statsd_metrics,
 )
 from superset.views.filters import FilterRelatedOwners
@@ -122,6 +125,8 @@ class DashboardRestApi(BaseSupersetModelRestApi):
         "position_json",
         "json_metadata",
         "thumbnail_url",
+        "certified_by",
+        "certification_details",
         "changed_by.first_name",
         "changed_by.last_name",
         "changed_by.username",
@@ -151,6 +156,8 @@ class DashboardRestApi(BaseSupersetModelRestApi):
     ]
 
     add_columns = [
+        "certified_by",
+        "certification_details",
         "dashboard_title",
         "slug",
         "owners",
@@ -174,7 +181,7 @@ class DashboardRestApi(BaseSupersetModelRestApi):
     )
     search_filters = {
         "dashboard_title": [DashboardTitleOrSlugFilter],
-        "id": [DashboardFavoriteFilter],
+        "id": [DashboardFavoriteFilter, DashboardCertifiedFilter],
     }
     base_order = ("changed_on", "desc")
 
@@ -425,6 +432,7 @@ class DashboardRestApi(BaseSupersetModelRestApi):
         action=lambda self, *args, **kwargs: f"{self.__class__.__name__}.post",
         log_to_statsd=False,
     )
+    @requires_json
     def post(self) -> Response:
         """Creates a new Dashboard
         ---
@@ -461,8 +469,6 @@ class DashboardRestApi(BaseSupersetModelRestApi):
             500:
               $ref: '#/components/responses/500'
         """
-        if not request.is_json:
-            return self.response_400(message="Request is not JSON")
         try:
             item = self.add_model_schema.load(request.json)
         # This validates custom Schema with custom validations
@@ -490,6 +496,7 @@ class DashboardRestApi(BaseSupersetModelRestApi):
         action=lambda self, *args, **kwargs: f"{self.__class__.__name__}.put",
         log_to_statsd=False,
     )
+    @requires_json
     def put(self, pk: int) -> Response:
         """Changes a Dashboard
         ---
@@ -520,6 +527,8 @@ class DashboardRestApi(BaseSupersetModelRestApi):
                         type: number
                       result:
                         $ref: '#/components/schemas/{{self.__class__.__name__}}.put'
+                      last_modified_time:
+                        type: number
             400:
               $ref: '#/components/responses/400'
             401:
@@ -533,8 +542,6 @@ class DashboardRestApi(BaseSupersetModelRestApi):
             500:
               $ref: '#/components/responses/500'
         """
-        if not request.is_json:
-            return self.response_400(message="Request is not JSON")
         try:
             item = self.edit_model_schema.load(request.json)
         # This validates custom Schema with custom validations
@@ -542,7 +549,15 @@ class DashboardRestApi(BaseSupersetModelRestApi):
             return self.response_400(message=error.messages)
         try:
             changed_model = UpdateDashboardCommand(g.user, pk, item).run()
-            response = self.response(200, id=changed_model.id, result=item)
+            last_modified_time = changed_model.changed_on.replace(
+                microsecond=0
+            ).timestamp()
+            response = self.response(
+                200,
+                id=changed_model.id,
+                result=item,
+                last_modified_time=last_modified_time,
+            )
         except DashboardNotFoundError:
             response = self.response_404()
         except DashboardForbiddenError:
@@ -717,9 +732,9 @@ class DashboardRestApi(BaseSupersetModelRestApi):
               $ref: '#/components/responses/500'
         """
         requested_ids = kwargs["rison"]
+        token = request.args.get("token")
 
         if is_feature_enabled("VERSIONED_EXPORT"):
-            token = request.args.get("token")
             timestamp = datetime.now().strftime("%Y%m%dT%H%M%S")
             root = f"dashboard_export_{timestamp}"
             filename = f"{root}.zip"
@@ -758,6 +773,8 @@ class DashboardRestApi(BaseSupersetModelRestApi):
         resp.headers["Content-Disposition"] = generate_download_headers("json")[
             "Content-Disposition"
         ]
+        if token:
+            resp.set_cookie(token, "done", max_age=600)
         return resp
 
     @expose("/<pk>/thumbnail/<digest>/", methods=["GET"])
@@ -910,6 +927,7 @@ class DashboardRestApi(BaseSupersetModelRestApi):
         action=lambda self, *args, **kwargs: f"{self.__class__.__name__}.import_",
         log_to_statsd=False,
     )
+    @requires_form_data
     def import_(self) -> Response:
         """Import dashboard(s) with associated charts/datasets/databases
         ---

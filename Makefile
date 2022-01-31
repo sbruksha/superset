@@ -32,7 +32,7 @@ superset:
 	# Create an admin user in your metadata database
 	superset fab create-admin \
                     --username admin \
-                    --firstname Admin \
+                    --firstname "Admin I."\
                     --lastname Strator \
                     --email admin@superset.io \
                     --password general
@@ -45,6 +45,9 @@ superset:
 
 	# Load some data to play with
 	superset load-examples
+
+	# Install node packages
+	cd superset-frontend; npm install
 
 update: update-py update-js
 

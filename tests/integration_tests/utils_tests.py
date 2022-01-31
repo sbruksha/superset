@@ -26,6 +26,7 @@ from typing import Any, Tuple, List, Optional
 from unittest.mock import Mock, patch
 from tests.integration_tests.fixtures.birth_names_dashboard import (
     load_birth_names_dashboard_with_slices,
+    load_birth_names_data,
 )
 
 import numpy as np
@@ -53,7 +54,6 @@ from superset.utils.core import (
     get_form_data_token,
     get_iterable,
     get_email_address_list,
-    get_or_create_db,
     get_stacktrace,
     json_int_dttm_ser,
     json_iso_dttm_ser,
@@ -71,6 +71,7 @@ from superset.utils.core import (
     zlib_compress,
     zlib_decompress,
 )
+from superset.utils.database import get_or_create_db
 from superset.utils import schema
 from superset.utils.hashing import md5_sha_from_str
 from superset.views.utils import (
@@ -81,6 +82,7 @@ from superset.views.utils import (
 from tests.integration_tests.base_tests import SupersetTestCase
 from tests.integration_tests.fixtures.world_bank_dashboard import (
     load_world_bank_dashboard_with_slices,
+    load_world_bank_data,
 )
 
 from .fixtures.certificates import ssl_certificate

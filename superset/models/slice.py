@@ -25,7 +25,16 @@ import sqlalchemy as sqla
 from flask_appbuilder import Model
 from flask_appbuilder.models.decorators import renders
 from markupsafe import escape, Markup
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Table, Text
+from sqlalchemy import (
+    Boolean,
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    String,
+    Table,
+    Text,
+)
 from sqlalchemy.engine.base import Connection
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm.mapper import Mapper
@@ -81,6 +90,10 @@ class Slice(  # pylint: disable=too-many-public-methods
     # when the database row was last written
     last_saved_at = Column(DateTime, nullable=True)
     last_saved_by_fk = Column(Integer, ForeignKey("ab_user.id"), nullable=True)
+    certified_by = Column(Text)
+    certification_details = Column(Text)
+    is_managed_externally = Column(Boolean, nullable=False, default=False)
+    external_url = Column(Text, nullable=True)
     last_saved_by = relationship(
         security_manager.user_model, foreign_keys=[last_saved_by_fk]
     )
@@ -211,6 +224,8 @@ class Slice(  # pylint: disable=too-many-public-methods
             "slice_id": self.id,
             "slice_name": self.slice_name,
             "slice_url": self.slice_url,
+            "certified_by": self.certified_by,
+            "certification_details": self.certification_details,
         }
 
     @property

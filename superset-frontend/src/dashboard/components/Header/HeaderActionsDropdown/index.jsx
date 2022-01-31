@@ -151,6 +151,7 @@ class HeaderActionsDropdown extends React.PureComponent {
     switch (key) {
       case MENU_KEYS.REFRESH_DASHBOARD:
         this.props.forceRefreshAllCharts();
+        this.props.addSuccessToast(t('Data refreshed'));
         break;
       case MENU_KEYS.EDIT_PROPERTIES:
         this.props.showPropertiesModal();
@@ -174,7 +175,6 @@ class HeaderActionsDropdown extends React.PureComponent {
       }
       case MENU_KEYS.TOGGLE_FULLSCREEN: {
         const url = getDashboardUrl({
-          dataMask: this.props.dataMask,
           pathname: window.location.pathname,
           filters: getActiveFilters(),
           hash: window.location.hash,
@@ -193,7 +193,6 @@ class HeaderActionsDropdown extends React.PureComponent {
       dashboardTitle,
       dashboardId,
       dashboardInfo,
-      dataMask,
       refreshFrequency,
       shouldPersistRefreshFrequency,
       editMode,
@@ -220,7 +219,6 @@ class HeaderActionsDropdown extends React.PureComponent {
     const emailBody = t('Check out this dashboard: ');
 
     const url = getDashboardUrl({
-      dataMask,
       pathname: window.location.pathname,
       filters: getActiveFilters(),
       hash: window.location.hash,
@@ -266,6 +264,7 @@ class HeaderActionsDropdown extends React.PureComponent {
             emailBody={emailBody}
             addSuccessToast={addSuccessToast}
             addDangerToast={addDangerToast}
+            dashboardId={dashboardId}
           />
         )}
         <Menu.Item
@@ -278,6 +277,7 @@ class HeaderActionsDropdown extends React.PureComponent {
         <Menu.Divider />
         <Menu.Item key={MENU_KEYS.AUTOREFRESH_MODAL}>
           <RefreshIntervalModal
+            addSuccessToast={this.props.addSuccessToast}
             refreshFrequency={refreshFrequency}
             refreshLimit={refreshLimit}
             refreshWarning={refreshWarning}

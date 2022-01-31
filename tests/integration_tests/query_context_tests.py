@@ -34,6 +34,7 @@ from superset.utils.core import AdhocMetricExpressionType, backend, TimeRangeEnd
 from tests.integration_tests.base_tests import SupersetTestCase
 from tests.integration_tests.fixtures.birth_names_dashboard import (
     load_birth_names_dashboard_with_slices,
+    load_birth_names_data,
 )
 from tests.integration_tests.fixtures.query_context import get_query_context
 
@@ -379,7 +380,7 @@ class TestQueryContext(SupersetTestCase):
         assert re.search(r'[`"\[]?num[`"\]]? IS NOT NULL', sql_text)
         assert re.search(
             r"""NOT \([`"\[]?name[`"\]]? IS NULL[\s\n]* """
-            r"""OR [`"\[]?name[`"\]]? IN \('abc'\)\)""",
+            r"""OR [`"\[]?name[`"\]]? IN \('"abc"'\)\)""",
             sql_text,
         )
 

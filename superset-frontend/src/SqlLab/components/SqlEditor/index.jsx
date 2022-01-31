@@ -52,6 +52,7 @@ import {
   queryEditorSetTemplateParams,
   runQuery,
   saveQuery,
+  addSavedQueryToTabState,
   scheduleQuery,
   setActiveSouthPaneTab,
   updateSavedQuery,
@@ -63,6 +64,11 @@ import {
   SQL_EDITOR_GUTTER_MARGIN,
   SQL_TOOLBAR_HEIGHT,
 } from 'src/SqlLab/constants';
+import {
+  getItem,
+  LocalStorageKeys,
+  setItem,
+} from 'src/utils/localStorageHelpers';
 import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import TemplateParamsEditor from '../TemplateParamsEditor';
 import ConnectedSouthPane from '../SouthPane/state';
@@ -171,7 +177,10 @@ class SqlEditor extends React.PureComponent {
       northPercent: props.queryEditor.northPercent || INITIAL_NORTH_PERCENT,
       southPercent: props.queryEditor.southPercent || INITIAL_SOUTH_PERCENT,
       sql: props.queryEditor.sql,
-      autocompleteEnabled: true,
+      autocompleteEnabled: getItem(
+        LocalStorageKeys.sqllab__is_autocomplete_enabled,
+        true,
+      ),
       showCreateAsModal: false,
       createAs: '',
     };
@@ -184,6 +193,7 @@ class SqlEditor extends React.PureComponent {
     this.canValidateQuery = this.canValidateQuery.bind(this);
     this.runQuery = this.runQuery.bind(this);
     this.stopQuery = this.stopQuery.bind(this);
+    this.saveQuery = this.saveQuery.bind(this);
     this.onSqlChanged = this.onSqlChanged.bind(this);
     this.setQueryEditorSql = this.setQueryEditorSql.bind(this);
     this.setQueryEditorSqlWithDebounce = debounce(
@@ -365,9 +375,15 @@ class SqlEditor extends React.PureComponent {
   }
 
   handleToggleAutocompleteEnabled = () => {
-    this.setState(prevState => ({
-      autocompleteEnabled: !prevState.autocompleteEnabled,
-    }));
+    this.setState(prevState => {
+      setItem(
+        LocalStorageKeys.sqllab__is_autocomplete_enabled,
+        !prevState.autocompleteEnabled,
+      );
+      return {
+        autocompleteEnabled: !prevState.autocompleteEnabled,
+      };
+    });
   };
 
   handleWindowResize() {
@@ -578,6 +594,12 @@ class SqlEditor extends React.PureComponent {
     );
   }
 
+  async saveQuery(query) {
+    const { queryEditor: qe, actions } = this.props;
+    const savedQuery = await actions.saveQuery(query);
+    actions.addSavedQueryToTabState(qe, savedQuery);
+  }
+
   renderEditorBottomBar() {
     const { queryEditor: qe } = this.props;
 
@@ -616,6 +638,7 @@ class SqlEditor extends React.PureComponent {
         )}
       </Menu>
     );
+
     return (
       <StyledToolbar className="sql-toolbar" id="js-sql-toolbar">
         <div className="leftItems">
@@ -679,7 +702,7 @@ class SqlEditor extends React.PureComponent {
             <SaveQuery
               query={qe}
               defaultLabel={qe.title || qe.description}
-              onSave={this.props.actions.saveQuery}
+              onSave={this.saveQuery}
               onUpdate={this.props.actions.updateSavedQuery}
               saveQueryWarning={this.props.saveQueryWarning}
             />
@@ -795,6 +818,7 @@ function mapDispatchToProps(dispatch) {
       queryEditorSetTemplateParams,
       runQuery,
       saveQuery,
+      addSavedQueryToTabState,
       scheduleQuery,
       setActiveSouthPaneTab,
       updateSavedQuery,

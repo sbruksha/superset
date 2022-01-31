@@ -35,8 +35,9 @@ apache_superset.egg-info
 .*csv
 # Generated doc files
 env/*
-docs/README.md
 docs/.htaccess*
+docs-v2/.htaccess*
+.nojekyll
 _build/*
 _static/*
 .buildinfo
@@ -59,5 +60,5 @@ tsconfig.tsbuildinfo
 .*iml
 .esprintrc
 .prettierignore
-superset-frontend/packages/generator-superset
-superset-frontend/temporary_superset_ui
+generator-superset/*
+temporary_superset_ui/*

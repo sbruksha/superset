@@ -144,6 +144,8 @@ class QueryContextProcessor:
             "status": cache.status,
             "stacktrace": cache.stacktrace,
             "rowcount": len(cache.df.index),
+            "from_dttm": query_obj.from_dttm,
+            "to_dttm": query_obj.to_dttm,
         }
 
     def query_cache_key(self, query_obj: QueryObject, **kwargs: Any) -> Optional[str]:
@@ -201,6 +203,8 @@ class QueryContextProcessor:
 
         result.df = df
         result.query = query
+        result.from_dttm = query_object.from_dttm
+        result.to_dttm = query_object.to_dttm
         return result
 
     def normalize_df(self, df: pd.DataFrame, query_object: QueryObject) -> pd.DataFrame:
@@ -302,10 +306,14 @@ class QueryContextProcessor:
                 # 2. rename extra query columns
                 offset_metrics_df = offset_metrics_df.rename(columns=metrics_mapping)
 
-                # 3. set time offset for dttm column
-                offset_metrics_df[DTTM_ALIAS] = offset_metrics_df[
-                    DTTM_ALIAS
-                ] - DateOffset(**normalize_time_delta(offset))
+                # 3. set time offset for index
+                # TODO: add x-axis to QueryObject, potentially as an array for
+                #  multi-dimensional charts
+                granularity = query_object.granularity
+                index = granularity if granularity in df.columns else DTTM_ALIAS
+                offset_metrics_df[index] = offset_metrics_df[index] - DateOffset(
+                    **normalize_time_delta(offset)
+                )
 
             # df left join `offset_metrics_df`
             offset_df = df_utils.left_join_df(
@@ -333,6 +341,10 @@ class QueryContextProcessor:
     def get_data(self, df: pd.DataFrame) -> Union[str, List[Dict[str, Any]]]:
         if self._query_context.result_format == ChartDataResultFormat.CSV:
             include_index = not isinstance(df.index, pd.RangeIndex)
+            columns = list(df.columns)
+            verbose_map = self._qc_datasource.data.get("verbose_map", {})
+            if verbose_map:
+                df.columns = [verbose_map.get(column, column) for column in columns]
             result = csv.df_to_escaped_csv(
                 df, index=include_index, **config["CSV_EXPORT"]
             )

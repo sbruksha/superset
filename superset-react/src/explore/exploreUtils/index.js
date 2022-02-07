@@ -33,7 +33,7 @@ import {
   MULTI_OPERATORS,
   OPERATOR_ENUM_TO_OPERATOR_TYPE,
 } from 'src/explore/constants';
-import { DashboardStandaloneMode } from 'src/dashboard/util/constants';
+import { DashboardStandaloneMode } from 'src/dashboard_embed/util/constants';
 import { optionLabel } from '../../utils/common';
 
 export function getChartKey(explore) {

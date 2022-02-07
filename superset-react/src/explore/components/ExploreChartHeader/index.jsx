@@ -36,7 +36,6 @@ import {
 } from 'src/reports/actions/reports';
 import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import HeaderReportActionsDropdown from 'src/components/ReportModal/HeaderReportActionsDropdown';
-import { chartPropShape } from 'src/dashboard/util/propShapes';
 import EditableTitle from 'src/components/EditableTitle';
 import AlteredSliceTag from 'src/components/AlteredSliceTag';
 import FaveStar from 'src/components/FaveStar';

@@ -17,8 +17,8 @@
  * under the License.
  */
 import { ExtraFormData } from '@superset-ui/core';
-import { NativeFilterType } from 'src/dashboard/components/nativeFilters/types';
-import { NativeFiltersState } from 'src/dashboard/reducers/types';
+import { NativeFilterType } from 'src/dashboard_embed/components/nativeFilters/types';
+import { NativeFiltersState } from 'src/dashboard_embed/reducers/types';
 import { DataMaskStateWithId } from '../../src/dataMask/types';
 
 export const nativeFilters: NativeFiltersState = {

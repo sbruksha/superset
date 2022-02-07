@@ -16,62 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { Suspense, useEffect } from 'react';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useLocation,
-} from 'react-router-dom';
-import { initFeatureFlags } from 'src/featureFlags';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ErrorBoundary from 'src/components/ErrorBoundary';
-import Loading from 'src/components/Loading';
-import Menu from 'src/views/components/Menu';
-import { bootstrapData } from 'src/preamble';
-import ToastContainer from 'src/components/MessageToasts/ToastContainer';
 import setupApp from 'src/setup/setupApp';
-import { routes, isFrontendRoute } from 'src/views/routes';
-import { Logger } from 'src/logger/LogUtils';
+import DashboardPage from 'src/dashboard_embed/containers/DashboardPage';
 import { RootContextProviders } from './RootContextProviders';
 
 setupApp();
 
-const user = { ...bootstrapData.user };
-const menu = { ...bootstrapData.common.menu_data };
-let lastLocationPathname: string;
-initFeatureFlags(bootstrapData.common.feature_flags);
-
-const LocationPathnameLogger = () => {
-  const location = useLocation();
-  useEffect(() => {
-    // reset performance logger timer start point to avoid soft navigation
-    // cause dashboard perf measurement problem
-    if (lastLocationPathname && lastLocationPathname !== location.pathname) {
-      Logger.markTimeOrigin();
-    }
-    lastLocationPathname = location.pathname;
-  }, [location.pathname]);
-  return <></>;
-};
-
 const App = () => (
   <Router>
-    <LocationPathnameLogger />
     <RootContextProviders>
-      <Menu data={menu} isFrontendRoute={isFrontendRoute} />
       <Switch>
-        {routes.map(({ path, Component, props = {}, Fallback = Loading }) => (
-          <Route path={path} key={path}>
-            <Suspense fallback={<Fallback />}>
-              <ErrorBoundary>
-                <Component user={user} {...props} />
-              </ErrorBoundary>
-            </Suspense>
-          </Route>
-        ))}
+        <Route path="/">
+          <ErrorBoundary>
+            <DashboardPage idOrSlug="10" />
+          </ErrorBoundary>
+        </Route>
       </Switch>
-      <ToastContainer />
     </RootContextProviders>
   </Router>
 );

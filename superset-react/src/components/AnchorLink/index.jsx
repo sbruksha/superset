@@ -21,8 +21,8 @@ import PropTypes from 'prop-types';
 import { t } from '@superset-ui/core';
 
 import URLShortLinkButton from 'src/components/URLShortLinkButton';
-import getDashboardUrl from 'src/dashboard/util/getDashboardUrl';
-import getLocationHash from 'src/dashboard/util/getLocationHash';
+import getDashboardUrl from 'src/dashboard_embed/util/getDashboardUrl';
+import getLocationHash from 'src/dashboard_embed/util/getLocationHash';
 
 const propTypes = {
   anchorLinkId: PropTypes.string.isRequired,

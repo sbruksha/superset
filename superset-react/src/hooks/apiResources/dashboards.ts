@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import { Dashboard, Datasource } from 'src/dashboard/types';
+import { Dashboard, Datasource } from 'src/dashboard_embed/types';
 import { Chart } from 'src/types/Chart';
 import { useApiV1Resource, useTransformedResource } from './apiResources';
 

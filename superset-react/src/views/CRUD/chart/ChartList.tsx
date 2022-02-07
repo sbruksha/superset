@@ -56,7 +56,7 @@ import ImportModelsModal from 'src/components/ImportModal/index';
 import Chart from 'src/types/Chart';
 import { Tooltip } from 'src/components/Tooltip';
 import Icons from 'src/components/Icons';
-import { nativeFilterGate } from 'src/dashboard/components/nativeFilters/utils';
+import { nativeFilterGate } from 'src/dashboard_embed/components/nativeFilters/utils';
 import setupPlugins from 'src/setup/setupPlugins';
 import InfoTooltip from 'src/components/InfoTooltip';
 import CertifiedBadge from 'src/components/CertifiedBadge';

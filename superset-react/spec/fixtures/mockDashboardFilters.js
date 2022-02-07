@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { DASHBOARD_FILTER_SCOPE_GLOBAL } from 'src/dashboard/reducers/dashboardFilters';
+import { DASHBOARD_FILTER_SCOPE_GLOBAL } from 'src/dashboard_embed/reducers/dashboardFilters';
 import { filterId } from './mockSliceEntities';
 
 export const emptyFilters = {};

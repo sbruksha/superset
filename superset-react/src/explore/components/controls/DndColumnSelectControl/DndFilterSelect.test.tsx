@@ -27,7 +27,7 @@ import {
   DndFilterSelect,
   DndFilterSelectProps,
 } from 'src/explore/components/controls/DndColumnSelectControl/DndFilterSelect';
-import { PLACEHOLDER_DATASOURCE } from 'src/dashboard/constants';
+import { PLACEHOLDER_DATASOURCE } from 'src/dashboard_embed/constants';
 import { TimeseriesDefaultFormData } from '@superset-ui/plugin-chart-echarts';
 
 const defaultProps: DndFilterSelectProps = {

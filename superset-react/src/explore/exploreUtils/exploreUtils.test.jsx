@@ -25,7 +25,7 @@ import {
   shouldUseLegacyApi,
   getSimpleSQLExpression,
 } from 'src/explore/exploreUtils';
-import { DashboardStandaloneMode } from 'src/dashboard/util/constants';
+import { DashboardStandaloneMode } from 'src/dashboard_embed/util/constants';
 import * as hostNamesConfig from 'src/utils/hostNamesConfig';
 import { getChartMetadataRegistry } from '@superset-ui/core';
 

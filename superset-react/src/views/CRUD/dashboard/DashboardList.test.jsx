@@ -35,7 +35,7 @@ import ConfirmStatusChange from 'src/components/ConfirmStatusChange';
 import DashboardList from 'src/views/CRUD/dashboard/DashboardList';
 import ListView from 'src/components/ListView';
 import ListViewCard from 'src/components/ListViewCard';
-import PropertiesModal from 'src/dashboard/components/PropertiesModal';
+import PropertiesModal from 'src/dashboard_embed/components/PropertiesModal';
 
 // store needed for withToasts(DashboardTable)
 const mockStore = configureStore([thunk]);

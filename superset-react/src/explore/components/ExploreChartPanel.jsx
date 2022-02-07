@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import Split from 'react-split';
 import { styled, SupersetClient, useTheme } from '@superset-ui/core';
 import { useResizeDetector } from 'react-resize-detector';
-import { chartPropShape } from 'src/dashboard/util/propShapes';
+import { chartPropShape } from 'src/dashboard_embed/util/propShapes';
 import ChartContainer from 'src/chart/ChartContainer';
 import {
   getItem,

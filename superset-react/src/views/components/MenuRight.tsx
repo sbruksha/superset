@@ -21,7 +21,7 @@ import { MainNav as Menu } from 'src/common/components';
 import { t, styled, css, SupersetTheme } from '@superset-ui/core';
 import { Link } from 'react-router-dom';
 import Icons from 'src/components/Icons';
-import findPermission from 'src/dashboard/util/findPermission';
+import findPermission from 'src/dashboard_embed/util/findPermission';
 import { useSelector } from 'react-redux';
 import { UserWithPermissionsAndRoles } from 'src/types/bootstrapTypes';
 import LanguagePicker from './LanguagePicker';

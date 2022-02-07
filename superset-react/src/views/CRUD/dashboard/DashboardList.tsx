@@ -43,12 +43,12 @@ import withToasts from 'src/components/MessageToasts/withToasts';
 import FacePile from 'src/components/FacePile';
 import Icons from 'src/components/Icons';
 import FaveStar from 'src/components/FaveStar';
-import PropertiesModal from 'src/dashboard/components/PropertiesModal';
+import PropertiesModal from 'src/dashboard_embed/components/PropertiesModal';
 import { Tooltip } from 'src/components/Tooltip';
 import ImportModelsModal from 'src/components/ImportModal/index';
 import OmniContainer from 'src/components/OmniContainer';
 
-import Dashboard from 'src/dashboard/containers/Dashboard';
+import Dashboard from 'src/dashboard_embed/containers/Dashboard';
 import CertifiedBadge from 'src/components/CertifiedBadge';
 import DashboardCard from './DashboardCard';
 import { DashboardStatus } from './types';

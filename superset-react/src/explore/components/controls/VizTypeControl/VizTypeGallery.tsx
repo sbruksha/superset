@@ -38,7 +38,7 @@ import { Collapse, Input } from 'src/common/components';
 import Label from 'src/components/Label';
 import { usePluginContext } from 'src/components/DynamicPlugins';
 import Icons from 'src/components/Icons';
-import { nativeFilterGate } from 'src/dashboard/components/nativeFilters/utils';
+import { nativeFilterGate } from 'src/dashboard_embed/components/nativeFilters/utils';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
 interface VizTypeGalleryProps {

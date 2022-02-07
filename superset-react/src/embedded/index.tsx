@@ -28,7 +28,7 @@ import Loading from 'src/components/Loading';
 const LazyDashboardPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "DashboardPage" */ 'src/dashboard/containers/DashboardPage'
+      /* webpackChunkName: "DashboardPage" */ 'src/dashboard_embed/containers/DashboardPage'
     ),
 );
 

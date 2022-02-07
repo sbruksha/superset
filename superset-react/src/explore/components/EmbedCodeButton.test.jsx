@@ -21,7 +21,7 @@ import { shallow } from 'enzyme';
 import { styledMount as mount } from 'spec/helpers/theming';
 import Popover from 'src/components/Popover';
 import EmbedCodeButton from 'src/explore/components/EmbedCodeButton';
-import { DashboardStandaloneMode } from 'src/dashboard/util/constants';
+import { DashboardStandaloneMode } from 'src/dashboard_embed/util/constants';
 
 describe('EmbedCodeButton', () => {
   it('renders', () => {

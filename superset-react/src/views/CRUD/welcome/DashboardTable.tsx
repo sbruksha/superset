@@ -40,7 +40,7 @@ import {
 } from 'src/views/CRUD/utils';
 import withToasts from 'src/components/MessageToasts/withToasts';
 import Loading from 'src/components/Loading';
-import PropertiesModal from 'src/dashboard/components/PropertiesModal';
+import PropertiesModal from 'src/dashboard_embed/components/PropertiesModal';
 import DashboardCard from 'src/views/CRUD/dashboard/DashboardCard';
 import SubMenu from 'src/views/components/SubMenu';
 import EmptyState from './EmptyState';

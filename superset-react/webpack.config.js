@@ -26,13 +26,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-const {
-  WebpackManifestPlugin,
-  getCompilerHooks,
-} = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const parsedArgs = require('yargs').argv;
-const getProxyConfig = require('./webpack.proxy-config');
 const packageConfig = require('./package');
 
 // input dir
@@ -138,6 +134,9 @@ const plugins = [
     chunks: [],
     filename: '500.html',
   }),
+  new HtmlWebpackPlugin({
+    template: './src/assets/staticPages/index.html',
+  }),
 ];
 
 if (!process.env.CI) {
@@ -205,15 +204,15 @@ const babelLoader = {
 const config = {
   entry: {
     preamble: PREAMBLE,
-    theme: path.join(APP_DIR, '/src/theme.ts'),
-    menu: addPreamble('src/views/menu.tsx'),
+    // theme: path.join(APP_DIR, '/src/theme.ts'),
+    // menu: addPreamble('src/views/menu.tsx'),
     spa: addPreamble('/src/views/index.tsx'),
-    embedded: addPreamble('/src/embedded/index.tsx'),
-    addSlice: addPreamble('/src/addSlice/index.tsx'),
-    explore: addPreamble('/src/explore/index.jsx'),
-    sqllab: addPreamble('/src/SqlLab/index.tsx'),
-    profile: addPreamble('/src/profile/index.tsx'),
-    showSavedQuery: [path.join(APP_DIR, '/src/showSavedQuery/index.jsx')],
+    // embedded: addPreamble('/src/embedded/index.tsx'),
+    // addSlice: addPreamble('/src/addSlice/index.tsx'),
+    // explore: addPreamble('/src/explore/index.jsx'),
+    // sqllab: addPreamble('/src/SqlLab/index.tsx'),
+    // profile: addPreamble('/src/profile/index.tsx'),
+    // showSavedQuery: [path.join(APP_DIR, '/src/showSavedQuery/index.jsx')],
   },
   output,
   stats: 'minimal',
@@ -442,32 +441,19 @@ Object.entries(packageConfig.dependencies).forEach(([pkg, relativeDir]) => {
 });
 console.log(''); // pure cosmetic new line
 
-let proxyConfig = getProxyConfig();
-
 if (isDevMode) {
   config.devtool = 'eval-cheap-module-source-map';
   config.devServer = {
-    onBeforeSetupMiddleware(devServer) {
-      // load proxy config when manifest updates
-      const { afterEmit } = getCompilerHooks(devServer.compiler);
-      afterEmit.tap('ManifestPlugin', manifest => {
-        proxyConfig = getProxyConfig(manifest);
-      });
-    },
-    historyApiFallback: true,
     hot: true,
     port: devserverPort,
     // Only serves bundled files from webpack-dev-server
     // and proxy everything else to Superset backend
-    proxy: [
-      // functions are called for every request
-      () => proxyConfig,
-    ],
     client: {
       overlay: { errors: true, warnings: false },
       logging: 'error',
     },
     static: path.join(process.cwd(), '../static/assets'),
+    historyApiFallback: true,
   };
 }
 

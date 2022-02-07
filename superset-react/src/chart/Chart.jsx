@@ -22,7 +22,7 @@ import Alert from 'src/components/Alert';
 import { styled, logging, t } from '@superset-ui/core';
 
 import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
-import { PLACEHOLDER_DATASOURCE } from 'src/dashboard/constants';
+import { PLACEHOLDER_DATASOURCE } from 'src/dashboard_embed/constants';
 import Button from 'src/components/Button';
 import Loading from 'src/components/Loading';
 import ErrorBoundary from '../components/ErrorBoundary';

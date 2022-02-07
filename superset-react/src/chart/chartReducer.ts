@@ -18,8 +18,8 @@
  */
 /* eslint camelcase: 0 */
 import { t } from '@superset-ui/core';
-import { HYDRATE_DASHBOARD } from 'src/dashboard/actions/hydrate';
-import { DatasourcesAction } from 'src/dashboard/actions/datasources';
+import { HYDRATE_DASHBOARD } from 'src/dashboard_embed/actions/hydrate';
+import { DatasourcesAction } from 'src/dashboard_embed/actions/datasources';
 import { ChartState } from 'src/explore/types';
 import { getFormDataFromControls } from 'src/explore/controlUtils';
 import { now } from 'src/modules/dates';

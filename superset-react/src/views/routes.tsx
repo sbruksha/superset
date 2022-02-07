@@ -61,7 +61,7 @@ const DashboardList = lazy(
 const DashboardPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "DashboardPage" */ 'src/dashboard/containers/DashboardPage'
+      /* webpackChunkName: "DashboardPage" */ 'src/dashboard_embed/containers/DashboardPage'
     ),
 );
 const DatabaseList = lazy(

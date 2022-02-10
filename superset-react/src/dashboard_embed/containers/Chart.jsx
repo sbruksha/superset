@@ -85,7 +85,7 @@ function mapStateToProps(
     datasource,
     labelColors,
     slice: sliceEntities.slices[id],
-    timeout: dashboardInfo.common.conf.SUPERSET_WEBSERVER_TIMEOUT,
+    timeout: dashboardInfo.common?.conf?.SUPERSET_WEBSERVER_TIMEOUT,
     filters: getActiveFilters() || EMPTY_OBJECT,
     formData,
     editMode: dashboardState.editMode,
@@ -96,7 +96,7 @@ function mapStateToProps(
     sliceCanEdit: !!dashboardInfo.slice_can_edit,
     ownState: dataMask[id]?.ownState,
     filterState: dataMask[id]?.filterState,
-    maxRows: common.conf.SQL_MAX_ROW,
+    maxRows: common?.conf?.SQL_MAX_ROW || 100,
     filterboxMigrationState: dashboardState.filterboxMigrationState,
   };
 }

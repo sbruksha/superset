@@ -18,22 +18,26 @@
  */
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import DashboardEmbed from 'src/dashboard_embed/';
+import ErrorBoundary from 'src/components/ErrorBoundary';
+import setupApp from 'src/setup/setupApp';
+import DashboardPage from 'src/dashboard_embed/containers/DashboardPage';
+import {
+  AuthProps,
+  RootContextProviders,
+} from 'src/views/RootContextProviders';
+import 'src/theme';
 
-const App = () => (
-  <Router>
-    <Route path="/">
-      <DashboardEmbed
-        host="localhost"
-        port={8088}
-        protocol="http:"
-        username="admin"
-        password="admin"
-        idOrSlug="1"
-      />
-    </Route>
-  </Router>
+setupApp();
+type DashboardEmbedProps = AuthProps & {
+  idOrSlug: string;
+};
+
+const DashboardEmbed = (props: DashboardEmbedProps) => (
+  <RootContextProviders {...props}>
+    <ErrorBoundary>
+      <DashboardPage idOrSlug={props.idOrSlug} />
+    </ErrorBoundary>
+  </RootContextProviders>
 );
 
-export default hot(App);
+export default hot(DashboardEmbed);

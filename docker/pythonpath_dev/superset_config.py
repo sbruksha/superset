@@ -112,3 +112,7 @@ try:
     )
 except ImportError:
     logger.info("Using default Docker config...")
+
+#CORS
+ENABLE_CORS=True
+CORS_OPTIONS = { 'supports_credentials': True }

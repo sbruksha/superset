@@ -104,14 +104,24 @@ export function mountExploreUrl(endpointType, extraSearch = {}, force = false) {
   return uri.directory(directory).search(search).toString();
 }
 
+let port = null;
+let hostname = null;
+
+export function setLegacyClientSetting(setting) {
+  // eslint-disable-next-line prefer-destructuring
+  port = setting.port;
+  // eslint-disable-next-line prefer-destructuring
+  hostname = setting.hostname;
+}
+
 export function getChartDataUri({ path, qs, allowDomainSharding = false }) {
   // The search params from the window.location are carried through,
   // but can be specified with curUrl (used for unit tests to spoof
   // the window.location).
   let uri = new URI({
     protocol: window.location.protocol.slice(0, -1),
-    hostname: getHostName(allowDomainSharding),
-    port: window.location.port ? window.location.port : '',
+    hostname: hostname || getHostName(allowDomainSharding),
+    port: port || (window.location.port ? window.location.port : ''),
     path,
   });
   if (qs) {

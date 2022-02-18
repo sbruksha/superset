@@ -1,0 +1,11 @@
+{
+  "app": "superset",
+  "entrypoints": {
+    "spa": {
+      "css": [],
+      "js": [
+        "/static/assets/spa.9bb312f2.entry.js"
+      ]
+    }
+  }
+}

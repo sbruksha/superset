@@ -17,9 +17,9 @@
  * under the License.
  */
 import { DataMask } from '@superset-ui/core';
-import { FilterConfiguration } from '../dashboard/components/nativeFilters/types';
+import { FilterConfiguration } from 'src/dashboard_embed/components/nativeFilters/types';
+import { Filters } from 'src/dashboard_embed/reducers/types';
 import { FeatureFlag, isFeatureEnabled } from '../featureFlags';
-import { Filters } from '../dashboard/reducers/types';
 import { getInitialDataMask } from './reducer';
 
 export const CLEAR_DATA_MASK_STATE = 'CLEAR_DATA_MASK_STATE';

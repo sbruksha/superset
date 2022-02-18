@@ -25,7 +25,11 @@ import { ParentSize } from '@vx/responsive';
 import Tabs from 'src/components/Tabs';
 import DashboardGrid from 'src/dashboard_embed/containers/DashboardGrid';
 import getLeafComponentIdFromPath from 'src/dashboard_embed/util/getLeafComponentIdFromPath';
-import { DashboardLayout, LayoutItem, RootState } from 'src/dashboard_embed/types';
+import {
+  DashboardLayout,
+  LayoutItem,
+  RootState,
+} from 'src/dashboard_embed/types';
 import {
   DASHBOARD_GRID_ID,
   DASHBOARD_ROOT_DEPTH,

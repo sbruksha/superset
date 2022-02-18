@@ -122,7 +122,7 @@ class TabbedSqlEditors extends React.PureComponent {
     // Hack: this data should be comming from getInitialState
     // but for some reason this data isn't being passed properly through
     // the reducer.
-    const appContainer = document.getElementById('app');
+    const appContainer = document.getElementById('superset_embed_dashboard');
     const bootstrapData = JSON.parse(
       appContainer?.getAttribute('data-bootstrap') || '{}',
     );

@@ -27,7 +27,9 @@ import getInitialState from './reducers/getInitialState';
 import rootReducer from './reducers/index';
 import App from './App';
 
-const exploreViewContainer = document.getElementById('app');
+const exploreViewContainer = document.getElementById(
+  'superset_embed_dashboard',
+);
 const bootstrapData = JSON.parse(
   exploreViewContainer.getAttribute('data-bootstrap'),
 );
@@ -39,4 +41,7 @@ const store = createStore(
   compose(applyMiddleware(thunk, logger), initEnhancer(false)),
 );
 
-ReactDOM.render(<App store={store} />, document.getElementById('app'));
+ReactDOM.render(
+  <App store={store} />,
+  document.getElementById('superset_embed_dashboard'),
+);

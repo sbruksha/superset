@@ -98,7 +98,7 @@ class Dashboard extends React.PureComponent {
   }
 
   componentDidMount() {
-    const appContainer = document.getElementById('app');
+    const appContainer = document.getElementById('superset_embed_dashboard');
     const bootstrapData = appContainer?.getAttribute('data-bootstrap') || '{}';
     const { dashboardState, layout } = this.props;
     const eventData = {

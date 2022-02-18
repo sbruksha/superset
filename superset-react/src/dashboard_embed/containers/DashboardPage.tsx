@@ -19,7 +19,6 @@
 import React, { FC, useRef, useEffect, useState } from 'react';
 import { FeatureFlag, isFeatureEnabled, t } from '@superset-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { useToasts } from 'src/components/MessageToasts/withToasts';
 import Loading from 'src/components/Loading';
 import FilterBoxMigrationModal from 'src/dashboard_embed/components/FilterBoxMigrationModal';

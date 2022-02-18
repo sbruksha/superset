@@ -30,7 +30,7 @@ import { theme } from 'src/preamble';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
-const container = document.getElementById('app');
+const container = document.getElementById('superset_embed_dashboard');
 const bootstrapJson = container?.getAttribute('data-bootstrap') ?? '{}';
 const bootstrap = JSON.parse(bootstrapJson);
 const menu = { ...bootstrap.common.menu_data };

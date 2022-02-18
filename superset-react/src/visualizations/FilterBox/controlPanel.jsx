@@ -20,7 +20,7 @@ import React from 'react';
 import { t } from '@superset-ui/core';
 import { sections } from '@superset-ui/chart-controls';
 
-const appContainer = document.getElementById('app');
+const appContainer = document.getElementById('superset_embed_dashboard');
 const bootstrapData = JSON.parse(appContainer.getAttribute('data-bootstrap'));
 const druidIsActive = !!bootstrapData?.common?.conf?.DRUID_IS_ACTIVE;
 const druidSection = druidIsActive

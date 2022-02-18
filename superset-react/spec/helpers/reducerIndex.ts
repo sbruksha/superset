@@ -34,7 +34,7 @@ import reports from 'src/reports/reducers/reports';
 
 const impressionId = (state = '') => state;
 
-const container = document.getElementById('app');
+const container = document.getElementById('superset_embed_dashboard');
 const bootstrap = JSON.parse(container?.getAttribute('data-bootstrap') ?? '{}');
 const common = { ...bootstrap.common };
 

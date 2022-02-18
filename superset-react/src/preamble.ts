@@ -34,7 +34,7 @@ if (process.env.WEBPACK_MODE === 'development') {
 export let bootstrapData: any;
 // Configure translation
 if (typeof window !== 'undefined') {
-  const root = document.getElementById('app');
+  const root = document.getElementById('superset_embed_dashboard');
   bootstrapData = root
     ? JSON.parse(root.getAttribute('data-bootstrap') || '{}')
     : {};

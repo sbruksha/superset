@@ -40,7 +40,7 @@ const noopReducer =
   (state: STATE = initialState) =>
     state;
 
-const container = document.getElementById('app');
+const container = document.getElementById('superset_embed_dashboard');
 const bootstrap = JSON.parse(container?.getAttribute('data-bootstrap') ?? '{}');
 
 // reducers used only in the dashboard page

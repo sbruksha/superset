@@ -24,7 +24,10 @@ import {
 } from '@superset-ui/core';
 import { NO_TIME_RANGE, TIME_FILTER_MAP } from 'src/explore/constants';
 import { getChartIdsInFilterScope } from 'src/dashboard_embed/util/activeDashboardFilters';
-import { ChartConfiguration, Filters } from 'src/dashboard_embed/reducers/types';
+import {
+  ChartConfiguration,
+  Filters,
+} from 'src/dashboard_embed/reducers/types';
 import { DataMaskStateWithId, DataMaskType } from 'src/dataMask/types';
 import { areObjectsEqual } from 'src/reduxUtils';
 import { Layout } from '../../types';

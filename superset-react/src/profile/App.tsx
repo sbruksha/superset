@@ -32,7 +32,9 @@ import ToastContainer from 'src/components/MessageToasts/ToastContainer';
 
 setupApp();
 
-const profileViewContainer = document.getElementById('app');
+const profileViewContainer = document.getElementById(
+  'superset_embed_dashboard',
+);
 const bootstrap = JSON.parse(
   profileViewContainer?.getAttribute('data-bootstrap') ?? '{}',
 );

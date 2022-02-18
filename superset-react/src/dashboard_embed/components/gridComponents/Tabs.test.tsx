@@ -53,7 +53,9 @@ jest.mock('src/dashboard_embed/components/DeleteComponentButton', () =>
     </button>
   )),
 );
-jest.mock('src/dashboard_embed/util/getLeafComponentIdFromPath', () => jest.fn());
+jest.mock('src/dashboard_embed/util/getLeafComponentIdFromPath', () =>
+  jest.fn(),
+);
 
 jest.mock('src/dashboard_embed/components/dnd/DragDroppable', () =>
   jest.fn(props => {

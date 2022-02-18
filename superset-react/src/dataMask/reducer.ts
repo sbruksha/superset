@@ -24,6 +24,11 @@ import { DataMask, FeatureFlag } from '@superset-ui/core';
 import { NATIVE_FILTER_PREFIX } from 'src/dashboard_embed/components/nativeFilters/FiltersConfigModal/utils';
 import { HYDRATE_DASHBOARD } from 'src/dashboard_embed/actions/hydrate';
 import { isFeatureEnabled } from 'src/featureFlags';
+import {
+  Filter,
+  FilterConfiguration,
+} from 'src/dashboard_embed/components/nativeFilters/types';
+import { Filters } from 'src/dashboard_embed/reducers/types';
 import { DataMaskStateWithId, DataMaskWithId } from './types';
 import {
   AnyDataMaskAction,
@@ -31,12 +36,7 @@ import {
   SET_DATA_MASK_FOR_FILTER_CONFIG_COMPLETE,
   UPDATE_DATA_MASK,
 } from './actions';
-import {
-  Filter,
-  FilterConfiguration,
-} from '../dashboard/components/nativeFilters/types';
 import { areObjectsEqual } from '../reduxUtils';
-import { Filters } from '../dashboard/reducers/types';
 
 export function getInitialDataMask(
   id?: string | number,

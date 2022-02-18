@@ -22,7 +22,6 @@ import React, { FC, useCallback, useMemo } from 'react';
 import { JsonObject, styled, css } from '@superset-ui/core';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import BuilderComponentPane from 'src/dashboard_embed/components/BuilderComponentPane';
-import DashboardHeader from 'src/dashboard_embed/containers/DashboardHeader';
 import Icons from 'src/components/Icons';
 import IconButton from 'src/dashboard_embed/components/IconButton';
 import DragDroppable from 'src/dashboard_embed/components/dnd/DragDroppable';
@@ -291,7 +290,6 @@ const DashboardBuilder: FC<DashboardBuilderProps> = () => {
   const renderDraggableContent = useCallback(
     ({ dropIndicatorProps }: { dropIndicatorProps: JsonObject }) => (
       <div>
-        {!hideDashboardHeader && <DashboardHeader />}
         {dropIndicatorProps && <div {...dropIndicatorProps} />}
         {!isReport && topLevelTabs && !uiConfig.hideNav && (
           <WithPopoverMenu

@@ -17,7 +17,11 @@
  * under the License.
  */
 import { DataRecordFilters, JsonObject } from '@superset-ui/core';
-import { ChartQueryPayload, Charts, LayoutItem } from 'src/dashboard_embed/types';
+import {
+  ChartQueryPayload,
+  Charts,
+  LayoutItem,
+} from 'src/dashboard_embed/types';
 import { getExtraFormData } from 'src/dashboard_embed/components/nativeFilters/utils';
 import { DataMaskStateWithId } from 'src/dataMask/types';
 import { areObjectsEqual } from 'src/reduxUtils';

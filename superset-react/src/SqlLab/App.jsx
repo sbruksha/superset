@@ -45,7 +45,7 @@ import { theme } from '../preamble';
 
 setupApp();
 
-const appContainer = document.getElementById('app');
+const appContainer = document.getElementById('superset_embed_dashboard');
 const bootstrapData = JSON.parse(appContainer.getAttribute('data-bootstrap'));
 
 initFeatureFlags(bootstrapData.common.feature_flags);

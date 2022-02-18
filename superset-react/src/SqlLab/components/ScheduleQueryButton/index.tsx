@@ -26,7 +26,7 @@ import { Form, FormItem } from 'src/components/Form';
 import './ScheduleQueryButton.less';
 import Button from 'src/components/Button';
 
-const appContainer = document.getElementById('app');
+const appContainer = document.getElementById('superset_embed_dashboard');
 const bootstrapData = JSON.parse(
   appContainer?.getAttribute('data-bootstrap') || '{}',
 );

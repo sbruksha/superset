@@ -88,7 +88,7 @@ const SET_QUERY_EDITOR_SQL_DEBOUNCE_MS = 2000;
 const VALIDATION_DEBOUNCE_MS = 600;
 const WINDOW_RESIZE_THROTTLE_MS = 100;
 
-const appContainer = document.getElementById('app');
+const appContainer = document.getElementById('superset_embed_dashboard');
 const bootstrapData = JSON.parse(
   appContainer.getAttribute('data-bootstrap') || '{}',
 );

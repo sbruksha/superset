@@ -164,7 +164,7 @@ export default class SupersetClientClass {
       fetchRetryOptions: fetchRetryOptions ?? this.fetchRetryOptions,
     }).catch(res => {
       if (res?.status === 401) {
-        this.redirectUnauthorized();
+        // this.redirectUnauthorized();
       }
       return Promise.reject(res);
     });
@@ -229,9 +229,5 @@ export default class SupersetClientClass {
     return `${this.protocol}//${cleanHost}/${
       endpoint[0] === '/' ? endpoint.slice(1) : endpoint
     }`;
-  }
-
-  redirectUnauthorized() {
-    window.location.href = `/login?next=${window.location.href}`;
   }
 }

@@ -33,16 +33,14 @@ import { store } from './store';
 export type AuthProps = {
   host: Host;
   protocol: Protocol;
-  username: string;
-  password: string;
+  token: string;
   port: number;
 };
 
 export const RootContextProviders: React.FC<AuthProps> = ({
   host,
   protocol,
-  username,
-  password,
+  token,
   children,
   port,
 }) => {
@@ -53,44 +51,17 @@ export const RootContextProviders: React.FC<AuthProps> = ({
       port,
     });
     const handleAuth = async () => {
-      const data = await postData(
-        `${protocol}//${host}:${port}/api/v1/security/login`,
-        {
-          password,
-          provider: 'db',
-          refresh: true,
-          username,
-        },
-      );
-      const response = await fetch(
-        `${protocol}//${host}:${port}/api/v1/security/csrf_token/`,
-        {
-          mode: 'cors',
-          credentials: 'include',
-          headers: { Authorization: `Bearer ${data.access_token}` },
-        },
-      );
-      const csrf = await response.json();
-      try {
-        await postFormData(`${protocol}//${host}:${port}/login/`, {
-          username,
-          password,
-          csrf_token: csrf.result,
-        });
-      } catch (error) {
-        console.error(error);
-      }
+      await postFormData(`${protocol}//${host}:${port}/auth/`, { token });
       setupClient({
         protocol,
         host: `${host}:${port}`,
         mode: 'cors',
         credentials: 'include',
-        headers: { Authorization: `Bearer ${data.access_token}` },
       });
       setIsReady(true);
     };
     handleAuth();
-  }, [host, password, protocol, username, port]);
+  }, [host, protocol, token, port]);
   return (
     <ThemeProvider theme={theme}>
       <ReduxProvider store={store}>
@@ -110,26 +81,13 @@ export const RootContextProviders: React.FC<AuthProps> = ({
     </ThemeProvider>
   );
 };
-async function postData(url = '', data = {}) {
-  const response = await fetch(url, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'error',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify(data),
-  });
-  return response.json();
-}
+
 async function postFormData(url = '', data = {}) {
   const formData = new URLSearchParams();
   Object.entries(data).forEach(([key, element]: [string, string]) =>
     formData.append(key, element),
   );
-  const response = await fetch(url, {
+  await fetch(url, {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
@@ -141,5 +99,4 @@ async function postFormData(url = '', data = {}) {
     referrerPolicy: 'no-referrer',
     body: formData,
   });
-  return response.json(); // parses JSON response into native JavaScript objects
 }

@@ -17,23 +17,35 @@
  * under the License.
  */
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import DashboardEmbed from 'src/dashboard_embed/';
 
-const App = () => (
-  <Router>
-    <Route path="/">
-      <DashboardEmbed
-        host="localhost"
-        port={8088}
-        protocol="http:"
-        username="admin"
-        password="admin"
-        idOrSlug="1"
-      />
-    </Route>
-  </Router>
-);
+const prefix = 'superset_dashboard_';
+const dashboardSettingsKeys = {
+  host: `${prefix}host`,
+  port: `${prefix}port`,
+  protocol: `${prefix}protocol`,
+  token: `${prefix}token`,
+  idOrSlug: `${prefix}idOrSlug`,
+};
 
-export default hot(App);
+const App = () => {
+  const isTemp = true;
+  const storage = isTemp ? sessionStorage : localStorage;
+
+  return (
+    <Router>
+      <DashboardEmbed
+        host={storage.getItem(dashboardSettingsKeys.host) || 'localhost'}
+        port={Number(storage.getItem(dashboardSettingsKeys.port)) || 8088}
+        protocol={
+          (storage.getItem(dashboardSettingsKeys.protocol) as any) || 'http:'
+        }
+        token={storage.getItem(dashboardSettingsKeys.token) || 'test-token'}
+        idOrSlug={storage.getItem(dashboardSettingsKeys.idOrSlug) || '1'}
+      />
+    </Router>
+  );
+};
+
+export default App;

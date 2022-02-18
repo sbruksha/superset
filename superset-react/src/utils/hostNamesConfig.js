@@ -23,7 +23,7 @@ import {
 } from 'src/featureFlags';
 
 function getDomainsConfig() {
-  const appContainer = document.getElementById('app');
+  const appContainer = document.getElementById('superset_embed_dashboard');
   if (!appContainer) {
     return [];
   }

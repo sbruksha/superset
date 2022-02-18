@@ -16,37 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Loading from 'src/components/Loading';
 import { bootstrapData } from 'src/preamble';
 import setupClient from 'src/setup/setupClient';
-import { RootContextProviders } from 'src/views/RootContextProviders';
-import ErrorBoundary from 'src/components/ErrorBoundary';
-import Loading from 'src/components/Loading';
-
-const LazyDashboardPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "DashboardPage" */ 'src/dashboard_embed/containers/DashboardPage'
-    ),
-);
 
 const EmbeddedApp = () => (
   <Router>
     <Route path="/dashboard/:idOrSlug/embedded">
-      <Suspense fallback={<Loading />}>
-        <RootContextProviders>
-          <ErrorBoundary>
-            <LazyDashboardPage />
-          </ErrorBoundary>
-        </RootContextProviders>
-      </Suspense>
+      <Suspense fallback={<Loading />} />
     </Route>
   </Router>
 );
 
-const appMountPoint = document.getElementById('app')!;
+const appMountPoint = document.getElementById('superset_embed_dashboard')!;
 
 const MESSAGE_TYPE = '__embedded_comms__';
 

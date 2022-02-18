@@ -29,7 +29,7 @@ import { theme } from '../preamble';
 setupApp();
 setupPlugins();
 
-const addSliceContainer = document.getElementById('app');
+const addSliceContainer = document.getElementById('superset_embed_dashboard');
 const bootstrapData = JSON.parse(
   addSliceContainer?.getAttribute('data-bootstrap') || '{}',
 );

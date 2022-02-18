@@ -79,7 +79,7 @@ export const init = (appConfig?: AppConfig) => {
     config = appConfig;
   } else {
     // load bootstrap data from DOM
-    const appContainer = document.getElementById('app');
+    const appContainer = document.getElementById('superset_embed_dashboard');
     if (appContainer) {
       const bootstrapData = JSON.parse(
         appContainer?.getAttribute('data-bootstrap') || '{}',

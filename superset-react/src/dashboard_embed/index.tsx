@@ -17,7 +17,6 @@
  * under the License.
  */
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import setupApp from 'src/setup/setupApp';
 import DashboardPage from 'src/dashboard_embed/containers/DashboardPage';
@@ -31,7 +30,6 @@ setupApp();
 type DashboardEmbedProps = AuthProps & {
   idOrSlug: string;
 };
-
 const DashboardEmbed = (props: DashboardEmbedProps) => (
   <RootContextProviders {...props}>
     <ErrorBoundary>
@@ -40,4 +38,4 @@ const DashboardEmbed = (props: DashboardEmbedProps) => (
   </RootContextProviders>
 );
 
-export default hot(DashboardEmbed);
+export default DashboardEmbed;

@@ -36,12 +36,12 @@ const App = () => {
   return (
     <Router>
       <DashboardEmbed
-        host={storage.getItem(dashboardSettingsKeys.host) || 'localhost'}
-        port={Number(storage.getItem(dashboardSettingsKeys.port)) || 8088}
+        host={storage.getItem(dashboardSettingsKeys.host) || undefined}
+        port={Number(storage.getItem(dashboardSettingsKeys.port)) || undefined}
         protocol={
           (storage.getItem(dashboardSettingsKeys.protocol) as any) || 'http:'
         }
-        token={storage.getItem(dashboardSettingsKeys.token) || 'test-token'}
+        token={storage.getItem(dashboardSettingsKeys.token) || undefined}
         idOrSlug={storage.getItem(dashboardSettingsKeys.idOrSlug) || '1'}
       />
     </Router>

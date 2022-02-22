@@ -31,10 +31,10 @@ import { theme } from '../preamble';
 import { store } from './store';
 
 export type AuthProps = {
-  host: Host;
-  protocol: Protocol;
-  token: string;
-  port: number;
+  host?: Host;
+  protocol?: Protocol;
+  token?: string;
+  port?: number;
 };
 
 export const RootContextProviders: React.FC<AuthProps> = ({
@@ -51,7 +51,8 @@ export const RootContextProviders: React.FC<AuthProps> = ({
       port,
     });
     const handleAuth = async () => {
-      await postFormData(`${protocol}//${host}:${port}/auth/`, { token });
+      const realPort = port ? `:${port}` : '';
+      await postFormData(`${protocol}//${host}${realPort}/auth/`, { token });
       setupClient({
         protocol,
         host: `${host}:${port}`,
@@ -92,9 +93,6 @@ async function postFormData(url = '', data = {}) {
     mode: 'cors',
     cache: 'no-cache',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
     redirect: 'error',
     referrerPolicy: 'no-referrer',
     body: formData,

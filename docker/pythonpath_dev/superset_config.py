@@ -126,4 +126,4 @@ from my_security_manager import MySecurityManager
 CUSTOM_SECURITY_MANAGER = MySecurityManager
 
 # JWT SECRET
-TOKEN_JWT_SECRET = 'test'
+TOKEN_JWT_SECRET = get_env_variable("TOKEN_JWT_SECRET") 

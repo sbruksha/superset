@@ -55,7 +55,7 @@ export const RootContextProviders: React.FC<AuthProps> = ({
       await postFormData(`${protocol}//${host}${realPort}/auth/`, { token });
       setupClient({
         protocol,
-        host: `${host}:${port}`,
+        host: `${host}${realPort}`,
         mode: 'cors',
         credentials: 'include',
       });

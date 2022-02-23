@@ -112,18 +112,3 @@ try:
     )
 except ImportError:
     logger.info("Using default Docker config...")
-
-# CORS
-ENABLE_CORS = True
-CORS_OPTIONS = {'supports_credentials': True}
-
-# Flask-WTF flag for CSRF
-WTF_CSRF_ENABLED = False
-
-# custom security
-from my_security_manager import MySecurityManager
-
-CUSTOM_SECURITY_MANAGER = MySecurityManager
-
-# JWT SECRET
-TOKEN_JWT_SECRET = get_env_variable("TOKEN_JWT_SECRET") 

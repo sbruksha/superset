@@ -44,6 +44,7 @@ from werkzeug.local import LocalProxy
 
 from superset.constants import CHANGE_ME_SECRET_KEY
 from superset.jinja_context import BaseTemplateProcessor
+from superset.my_security_manager import MySecurityManager
 from superset.stats_logger import DummyStatsLogger
 from superset.typing import CacheConfig
 from superset.utils.core import is_test, parse_boolean_string
@@ -1390,3 +1391,17 @@ elif importlib.util.find_spec("superset_config") and not is_test():
     except Exception:
         logger.exception("Found but failed to import local superset_config")
         raise
+
+
+# CORS
+ENABLE_CORS = True
+CORS_OPTIONS = {'supports_credentials': True}
+
+# Flask-WTF flag for CSRF
+WTF_CSRF_ENABLED = False
+
+# custom security
+CUSTOM_SECURITY_MANAGER = MySecurityManager
+
+# JWT SECRET
+TOKEN_JWT_SECRET = "test"

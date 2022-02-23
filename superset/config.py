@@ -1404,4 +1404,4 @@ WTF_CSRF_ENABLED = False
 CUSTOM_SECURITY_MANAGER = MySecurityManager
 
 # JWT SECRET
-TOKEN_JWT_SECRET = "test"
+TOKEN_JWT_SECRET = "tokentoreplace"

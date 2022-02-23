@@ -229,3 +229,27 @@ Terminal Four
 docker-compose -f docker-compose-non-dev.yml up -d
 
 ```
+
+##Deployment
+
+Add the Superset helm repository
+>helm repo add superset https://apache.github.io/superset
+
+Change token in superset/superset/config.py
+>TOKEN_JWT_SECRET = "xxx"
+
+Install and run
+```
+helm upgrade --install superset superset/superset --namespace superset -f values.yaml \
+  --set image.repository=936117204951.dkr.ecr.us-east-1.amazonaws.com/superset \
+  --set images.tag=latest \
+  --set image.pullPolicy=Always
+```
+
+Delete superset
+>helm delete superset --namespace superset
+
+Run locally
+>kubectl port-forward service/superset 8088:8088 --namespace superset
+
+"Visit http://127.0.0.1:8088 to use your application"

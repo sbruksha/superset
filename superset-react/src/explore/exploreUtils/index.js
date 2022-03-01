@@ -106,12 +106,15 @@ export function mountExploreUrl(endpointType, extraSearch = {}, force = false) {
 
 let port = null;
 let hostname = null;
+let protocol = null;
 
 export function setLegacyClientSetting(setting) {
   // eslint-disable-next-line prefer-destructuring
   port = setting.port;
   // eslint-disable-next-line prefer-destructuring
   hostname = setting.hostname;
+  // eslint-disable-next-line prefer-destructuring
+  protocol = setting.protocol;
 }
 
 export function getChartDataUri({ path, qs, allowDomainSharding = false }) {
@@ -119,9 +122,11 @@ export function getChartDataUri({ path, qs, allowDomainSharding = false }) {
   // but can be specified with curUrl (used for unit tests to spoof
   // the window.location).
   let uri = new URI({
-    protocol: window.location.protocol.slice(0, -1),
+    protocol:
+      (protocol && protocol.slice(0, -1)) ||
+      window.location.protocol.slice(0, -1),
     hostname: hostname || getHostName(allowDomainSharding),
-    port: port || (window.location.port ? window.location.port : ''),
+    port,
     path,
   });
   if (qs) {

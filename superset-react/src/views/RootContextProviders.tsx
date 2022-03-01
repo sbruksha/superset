@@ -59,6 +59,11 @@ export const RootContextProviders: React.FC<AuthProps> = ({
         mode: 'cors',
         credentials: 'include',
       });
+      setLegacyClientSetting({
+        hostname: host,
+        port: null,
+        protocol,
+      });
       setIsReady(true);
     };
     handleAuth();

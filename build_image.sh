@@ -6,4 +6,4 @@ if [ -z $TAG ]; then
     TAG="latest"
 fi
 
-docker build -t talix/superset:$TAG -f $DIR/Dockerfile $DIR
+docker build -t eodessa/superset:$TAG -f $DIR/Dockerfile $DIR

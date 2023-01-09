@@ -241,7 +241,7 @@ Change token in superset/superset/config.py
 Install and run
 ```
 helm upgrade --install superset superset/superset --namespace superset -f values.yaml \
-  --set image.repository=936117204951.dkr.ecr.us-east-1.amazonaws.com/superset \
+  --set image.repository=333505923768.dkr.ecr.us-west-2.amazonaws.com/superset \
   --set images.tag=latest \
   --set image.pullPolicy=Always
 ```

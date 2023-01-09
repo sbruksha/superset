@@ -158,7 +158,7 @@ configMountPath: "/app/pythonpath"
 extraConfigMountPath: "/app/configs"
 
 image:
-  repository: 936117204951.dkr.ecr.us-east-1.amazonaws.com/superset
+  repository: 333505923768.dkr.ecr.us-west-2.amazonaws.com/superset
   tag: latest
   pullPolicy: Always
 
